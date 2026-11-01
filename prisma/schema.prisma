@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Postgres (Neon): DATABASE_URL = ลิงก์ pooled ใช้ตอนเว็บทำงาน
+// DIRECT_URL = ลิงก์ direct ใช้ตอนสร้าง/อัปเดตตาราง (migration)
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// คนที่กรอกฟอร์มสมัครรับข่าวสาร
+model Subscriber {
+  id        String   @id @default(cuid())
+  name      String
+  // เก็บเป็นตัวพิมพ์เล็กเสมอ เพื่อกันอีเมลซ้ำที่ต่างกันแค่ตัวพิมพ์
+  email     String   @unique
+  consent   Boolean
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}

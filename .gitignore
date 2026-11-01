@@ -1,0 +1,19 @@
+node_modules
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+
+# กุญแจลับ/ค่าเฉพาะเครื่อง — ห้าม commit
+.env
+.env.local
+.env.*.local
+
+# ฐานข้อมูลในเครื่อง (SQLite)
+prisma/*.db
+prisma/*.db-journal
+
+.DS_Store
+
+# ตั้งค่า Claude เฉพาะเครื่อง
+.claude/settings.local.json

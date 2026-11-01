@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --paper: 247 248 250;
+    --ink: 16 24 40;
+    --muted: 91 101 119;
+    --line: 227 230 236;
+    --accent: 51 70 232;
+    --accent-soft: 232 235 255;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    line-height: 1.75;
+  }
+
+  /* ภาษาไทยมีสระบน-ล่าง ต้องเว้นบรรทัดมากกว่าปกติ */
+  h1,
+  h2,
+  h3 {
+    line-height: 1.25;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  ::selection {
+    @apply bg-accent-soft text-ink;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
