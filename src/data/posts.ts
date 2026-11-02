@@ -1,4 +1,4 @@
-// ข้อมูลตัวอย่าง (เฟส 1) — บทความสมมติ เปลี่ยนเป็นบทความจริงได้ที่ไฟล์นี้
+// ข้อมูลตั้งต้นสำหรับ seed เท่านั้น (รัน npm run db:seed) — บทความจริงเขียน/แก้ที่ /admin/posts
 
 export type PostBlock =
   | { type: "p"; text: string }
@@ -79,16 +79,3 @@ export const posts: Post[] = [
     ],
   },
 ];
-
-export function getPost(slug: string): Post | undefined {
-  return posts.find((p) => p.slug === slug);
-}
-
-export function formatThaiDate(date: string): string {
-  return new Date(`${date}T00:00:00Z`).toLocaleDateString("th-TH", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-}

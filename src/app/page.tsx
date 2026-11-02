@@ -4,14 +4,17 @@ import { SubscribeBand } from "@/components/subscribe-band";
 import { Button } from "@/components/ui/button";
 import { WorkList } from "@/components/work-list";
 import { facts, site } from "@/data/site";
-import { posts } from "@/data/posts";
-import { works } from "@/data/works";
+import { getPublishedPosts, getPublishedWorks } from "@/lib/content";
 
 const LATEST_POSTS = 3;
 
-export default function HomePage() {
+// อ่านจากฐานข้อมูลทุกครั้ง เพื่อให้ผลงาน/บทความใหม่ขึ้นทันที
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const [works, posts] = await Promise.all([getPublishedWorks(), getPublishedPosts()]);
   const featured = works.filter((w) => w.featured);
-  const latest = [...posts].sort((a, b) => b.date.localeCompare(a.date)).slice(0, LATEST_POSTS);
+  const latest = posts.slice(0, LATEST_POSTS);
 
   return (
     <>

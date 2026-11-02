@@ -1,8 +1,11 @@
 import Link from "next/link";
-import type { Work } from "@/data/works";
+import type { Work } from "@prisma/client";
 
 // รายการผลงานแบบแถว (ไม่ใช้การ์ด) — ใช้ทั้งหน้าแรกและหน้าผลงาน
 export function WorkList({ items }: { items: Work[] }) {
+  if (items.length === 0) {
+    return <p className="border-y border-line py-10 text-muted">ยังไม่มีผลงาน แวะกลับมาใหม่เร็ว ๆ นี้</p>;
+  }
   return (
     <ul className="border-t border-line">
       {items.map((work) => (

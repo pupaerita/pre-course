@@ -1,4 +1,4 @@
-// ข้อมูลตัวอย่าง (เฟส 1) — ผลงานสมมติ เปลี่ยนเป็นผลงานจริงได้ที่ไฟล์นี้
+// ข้อมูลตั้งต้นสำหรับ seed เท่านั้น (รัน npm run db:seed) — ผลงานจริงเพิ่ม/แก้ที่ /admin/works
 
 export type Work = {
   slug: string;
@@ -87,7 +87,3 @@ export const works: Work[] = [
     featured: false,
   },
 ];
-
-export function getWork(slug: string): Work | undefined {
-  return works.find((w) => w.slug === slug);
-}

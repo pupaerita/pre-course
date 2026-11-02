@@ -21,3 +21,46 @@ model Subscriber {
 
   @@index([createdAt])
 }
+
+// บทความ — เจ้าของเขียน/เผยแพร่เองที่ /admin/posts
+model Post {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  excerpt     String
+  tag         String
+  // เนื้อหา: แต่ละย่อหน้าคั่นด้วยบรรทัดว่าง · บรรทัดที่ขึ้นต้นด้วย "## " คือหัวข้อย่อย
+  body        String
+  readMinutes Int
+  // false = ฉบับร่าง (ไม่ขึ้นหน้าเว็บ) · true = เผยแพร่แล้ว
+  published   Boolean   @default(false)
+  // วันที่เผยแพร่ครั้งแรก — ตั้งอัตโนมัติตอนกดเผยแพร่
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([published, publishedAt])
+}
+
+// ผลงาน — เจ้าของเพิ่ม/แก้เองที่ /admin/works
+model Work {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  client    String
+  year      String
+  category  String
+  summary   String
+  role      String
+  challenge String
+  // สิ่งที่ทำ — หนึ่งข้อต่อหนึ่งรายการ
+  approach  String[]
+  result    String
+  // true = โชว์ในหัวข้อ "ผลงานที่ภูมิใจ" หน้าแรก
+  featured  Boolean  @default(false)
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, year])
+}

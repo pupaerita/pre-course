@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { LogoutButton } from "@/components/admin/logout-button";
+import { AdminNav } from "@/components/admin/admin-nav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
@@ -45,15 +45,13 @@ export default async function AdminPage({ searchParams }: Props) {
 
   return (
     <section className="mx-auto max-w-page px-5 pb-8 pt-14 sm:px-8 sm:pt-20">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">รายชื่อผู้สมัคร</h1>
-          <p className="mt-2 text-muted">
-            ทั้งหมด {all.toLocaleString("th-TH")} คน
-            {q && <> · พบ {total.toLocaleString("th-TH")} คนที่ตรงกับ &ldquo;{q}&rdquo;</>}
-          </p>
-        </div>
-        <LogoutButton />
+      <AdminNav current="subscribers" />
+      <div>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">รายชื่อผู้สมัคร</h1>
+        <p className="mt-2 text-muted">
+          ทั้งหมด {all.toLocaleString("th-TH")} คน
+          {q && <> · พบ {total.toLocaleString("th-TH")} คนที่ตรงกับ &ldquo;{q}&rdquo;</>}
+        </p>
       </div>
 
       <div className="mt-8 flex flex-wrap items-end gap-3">

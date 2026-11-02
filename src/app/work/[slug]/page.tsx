@@ -3,25 +3,24 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SubscribeBand } from "@/components/subscribe-band";
 import { Button } from "@/components/ui/button";
-import { getWork, works } from "@/data/works";
+import { getPublishedWork, getPublishedWorks } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return works.map((w) => ({ slug: w.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const work = getWork(slug);
+  const work = await getPublishedWork(slug);
   return work ? { title: work.title, description: work.summary } : {};
 }
 
 export default async function WorkDetailPage({ params }: Props) {
   const { slug } = await params;
-  const work = getWork(slug);
+  const work = await getPublishedWork(slug);
   if (!work) notFound();
 
+  const works = await getPublishedWorks();
   const index = works.findIndex((w) => w.slug === work.slug);
   const next = works[(index + 1) % works.length];
 
